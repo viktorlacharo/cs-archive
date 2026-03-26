@@ -7,7 +7,7 @@ Config.overrideWebpackConfig(enableTailwind);
 // Configure default video settings
 Config.setVideoImageFormat("jpeg");
 Config.setOverwriteOutput(true);
-Config.setEntryPoint("./src/index.ts");
+Config.setEntryPoint("./src/index.tsx");
 
 // Output directory for rendered videos
 Config.setOutputLocation("./out");
