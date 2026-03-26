@@ -8,7 +8,6 @@ import {
   spring,
 } from "remotion";
 import { Root } from "../Root";
-import { TitleScene } from "../components/TitleScene";
 import { CodeBlock } from "../components/CodeBlock";
 import {
   ComponentBox,
@@ -18,64 +17,21 @@ import {
 } from "../components/CacheVisualization";
 
 // ============================================
-// SCENE 1: Title
-// ============================================
-const TitleSceneWrapper: React.FC = () => {
-  return (
-    <TitleScene
-      title="React Query"
-      subtitle="State Economy: Una cache, múltiples consumidores"
-      accentColor="#3B82F6"
-    />
-  );
-};
-
-// ============================================
-// SCENE 2: The Problem - Traditional Approach
+// SCENE 1: The Problem - Traditional Approach
 // ============================================
 const ProblemScene: React.FC = () => {
-  const frame = useCurrentFrame();
-
-  const titleOpacity = interpolate(frame, [0, 20], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
   return (
-    <AbsoluteFill style={{ padding: 60 }}>
-      {/* Title */}
-      <div
-        style={{
-          opacity: titleOpacity,
-          marginBottom: 40,
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: "'Newsreader', serif",
-            fontSize: 56,
-            fontWeight: 500,
-            color: "#FAFAFA",
-            marginBottom: 16,
-          }}
-        >
-          El Problema Tradicional
-        </h2>
-        <p
-          style={{
-            fontFamily: "'Source Sans 3', sans-serif",
-            fontSize: 28,
-            color: "#A3A3A3",
-          }}
-        >
-          Cada componente gestiona su propio estado
-        </p>
-      </div>
-
-      {/* Code Example */}
-      <Sequence from={30} durationInFrames={270}>
-        <CodeBlock
-          code={`// UserProfile.tsx
+    <AbsoluteFill
+      style={{
+        padding: 60,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <CodeBlock
+        code={`// UserProfile.tsx
 const [user, setUser] = useState(null);
 const [loading, setLoading] = useState(true);
 const [error, setError] = useState(null);
@@ -91,126 +47,32 @@ useEffect(() => {
 const [user, setUser] = useState(null);
 const [loading, setLoading] = useState(true);
 // ... mismo código repetido`}
-          language="typescript"
-          title="Estado duplicado en cada componente"
-          animationStartFrame={30}
-          animationDuration={40}
-          highlightLines={[2, 3, 4, 13, 14]}
-        />
-      </Sequence>
-
-      {/* Problem indicators */}
-      <Sequence from={180} durationInFrames={120}>
-        <div
-          style={{
-            position: "absolute",
-            bottom: 120,
-            left: 60,
-            right: 60,
-            display: "flex",
-            gap: 30,
-          }}
-        >
-          {[
-            { icon: "🔄", text: "Requests duplicados" },
-            { icon: "💾", text: "Estado inconsistente" },
-            { icon: "🐛", text: "Bugs de sincronización" },
-          ].map((item, i) => {
-            const itemDelay = 180 + i * 15;
-            const itemOpacity = interpolate(
-              frame,
-              [itemDelay, itemDelay + 15],
-              [0, 1],
-              { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
-            );
-            const itemY = interpolate(
-              frame,
-              [itemDelay, itemDelay + 15],
-              [20, 0],
-              { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
-            );
-
-            return (
-              <div
-                key={i}
-                style={{
-                  opacity: itemOpacity,
-                  transform: `translateY(${itemY}px)`,
-                  flex: 1,
-                  padding: "20px 24px",
-                  backgroundColor: "#141414",
-                  border: "1px solid #EF4444",
-                  borderRadius: 12,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 16,
-                }}
-              >
-                <span style={{ fontSize: 32 }}>{item.icon}</span>
-                <span
-                  style={{
-                    fontFamily: "'Source Sans 3', sans-serif",
-                    fontSize: 22,
-                    color: "#FAFAFA",
-                  }}
-                >
-                  {item.text}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </Sequence>
+        language="typescript"
+        title="Estado duplicado en cada componente"
+        animationStartFrame={0}
+        animationDuration={40}
+        highlightLines={[2, 3, 4, 14, 15]}
+      />
     </AbsoluteFill>
   );
 };
 
 // ============================================
-// SCENE 3: React Query Solution
+// SCENE 2: React Query Solution
 // ============================================
 const SolutionScene: React.FC = () => {
-  const frame = useCurrentFrame();
-
-  const titleOpacity = interpolate(frame, [0, 20], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
   return (
-    <AbsoluteFill style={{ padding: 60 }}>
-      {/* Title */}
-      <div
-        style={{
-          opacity: titleOpacity,
-          marginBottom: 40,
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: "'Newsreader', serif",
-            fontSize: 56,
-            fontWeight: 500,
-            color: "#FAFAFA",
-            marginBottom: 16,
-          }}
-        >
-          La Solución: useQuery
-        </h2>
-        <p
-          style={{
-            fontFamily: "'Source Sans 3', sans-serif",
-            fontSize: 28,
-            color: "#A3A3A3",
-          }}
-        >
-          Un hook, múltiples beneficios
-        </p>
-      </div>
-
-      {/* Code Example */}
-      <Sequence from={30} durationInFrames={270}>
-        <CodeBlock
-          code={`// UserProfile.tsx
+    <AbsoluteFill
+      style={{
+        padding: 60,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <CodeBlock
+        code={`// UserProfile.tsx
 const { data: user, isLoading, error } = useQuery({
   queryKey: ['user', userId],
   queryFn: () => fetchUser(userId),
@@ -223,82 +85,18 @@ const { data: user } = useQuery({
 });
 
 // Modal, Sidebar, Header... TODOS comparten la cache`}
-          language="typescript"
-          title="React Query: Estado compartido automáticamente"
-          animationStartFrame={30}
-          animationDuration={40}
-          highlightLines={[3, 9]}
-        />
-      </Sequence>
-
-      {/* Benefits */}
-      <Sequence from={180} durationInFrames={120}>
-        <div
-          style={{
-            position: "absolute",
-            bottom: 120,
-            left: 60,
-            right: 60,
-            display: "flex",
-            gap: 30,
-          }}
-        >
-          {[
-            { icon: "✨", text: "1 request, N consumidores" },
-            { icon: "🔄", text: "Sincronización automática" },
-            { icon: "⚡", text: "Cache inteligente" },
-          ].map((item, i) => {
-            const itemDelay = 180 + i * 15;
-            const itemOpacity = interpolate(
-              frame,
-              [itemDelay, itemDelay + 15],
-              [0, 1],
-              { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
-            );
-            const itemY = interpolate(
-              frame,
-              [itemDelay, itemDelay + 15],
-              [20, 0],
-              { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
-            );
-
-            return (
-              <div
-                key={i}
-                style={{
-                  opacity: itemOpacity,
-                  transform: `translateY(${itemY}px)`,
-                  flex: 1,
-                  padding: "20px 24px",
-                  backgroundColor: "#141414",
-                  border: "1px solid #10B981",
-                  borderRadius: 12,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 16,
-                }}
-              >
-                <span style={{ fontSize: 32 }}>{item.icon}</span>
-                <span
-                  style={{
-                    fontFamily: "'Source Sans 3', sans-serif",
-                    fontSize: 22,
-                    color: "#FAFAFA",
-                  }}
-                >
-                  {item.text}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </Sequence>
+        language="typescript"
+        title="React Query: Estado compartido automáticamente"
+        animationStartFrame={0}
+        animationDuration={40}
+        highlightLines={[3, 9]}
+      />
     </AbsoluteFill>
   );
 };
 
 // ============================================
-// SCENE 4: Visual Cache Diagram
+// SCENE 3: Visual Cache Diagram
 // ============================================
 const CacheDiagramScene: React.FC = () => {
   const frame = useCurrentFrame();
@@ -538,51 +336,21 @@ const CacheDiagramScene: React.FC = () => {
 };
 
 // ============================================
-// SCENE 5: Modal Example - Real World Use Case
+// SCENE 4: Modal Example - Real World Use Case
 // ============================================
 const ModalExampleScene: React.FC = () => {
-  const frame = useCurrentFrame();
-
-  const titleOpacity = interpolate(frame, [0, 20], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
   return (
-    <AbsoluteFill style={{ padding: 60 }}>
-      {/* Title */}
-      <div
-        style={{
-          opacity: titleOpacity,
-          marginBottom: 30,
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: "'Newsreader', serif",
-            fontSize: 48,
-            fontWeight: 500,
-            color: "#FAFAFA",
-            marginBottom: 12,
-          }}
-        >
-          Caso Real: Modales y Sidebars
-        </h2>
-        <p
-          style={{
-            fontFamily: "'Source Sans 3', sans-serif",
-            fontSize: 24,
-            color: "#A3A3A3",
-          }}
-        >
-          Los datos ya están en cache cuando el usuario abre el modal
-        </p>
-      </div>
-
-      {/* Code Example */}
-      <Sequence from={30} durationInFrames={270}>
-        <CodeBlock
-          code={`// ProductCard.tsx - Lista de productos
+    <AbsoluteFill
+      style={{
+        padding: 60,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <CodeBlock
+        code={`// ProductCard.tsx - Lista de productos
 const { data: product } = useQuery({
   queryKey: ['product', productId],
   queryFn: () => fetchProduct(productId),
@@ -597,57 +365,18 @@ const { data: product } = useQuery({
 
 // ¡El modal se abre INSTANTÁNEAMENTE!
 // Los datos ya estaban en cache desde la lista`}
-          language="typescript"
-          title="Zero loading time en modales"
-          animationStartFrame={30}
-          animationDuration={35}
-          highlightLines={[3, 9, 15, 16]}
-        />
-      </Sequence>
-
-      {/* Visual indicator */}
-      <Sequence from={200} durationInFrames={100}>
-        <div
-          style={{
-            position: "absolute",
-            bottom: 100,
-            left: 60,
-            right: 60,
-            display: "flex",
-            justifyContent: "center",
-            gap: 40,
-          }}
-        >
-          <div
-            style={{
-              padding: "24px 40px",
-              backgroundColor: "#141414",
-              border: "2px solid #3B82F6",
-              borderRadius: 16,
-              opacity: interpolate(frame, [200, 220], [0, 1], {
-                extrapolateLeft: "clamp",
-                extrapolateRight: "clamp",
-              }),
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "'Newsreader', serif",
-                fontSize: 28,
-                color: "#FAFAFA",
-              }}
-            >
-              UX instantánea = Usuarios felices
-            </span>
-          </div>
-        </div>
-      </Sequence>
+        language="typescript"
+        title="Zero loading time en modales"
+        animationStartFrame={0}
+        animationDuration={35}
+        highlightLines={[3, 9, 14, 15]}
+      />
     </AbsoluteFill>
   );
 };
 
 // ============================================
-// SCENE 6: Conclusion
+// SCENE 5: Conclusion
 // ============================================
 const ConclusionScene: React.FC = () => {
   const frame = useCurrentFrame();
@@ -830,33 +559,28 @@ const ConclusionScene: React.FC = () => {
 export const ReactQueryEconomyComposition: React.FC = () => {
   return (
     <Root>
-      {/* Scene 1: Title (0-90 frames = 3s) */}
-      <Sequence from={0} durationInFrames={90} name="Title">
-        <TitleSceneWrapper />
-      </Sequence>
-
-      {/* Scene 2: Problem (90-390 frames = 10s) */}
-      <Sequence from={90} durationInFrames={300} name="Problem">
+      {/* Scene 1: Problem (0-240 frames = 8s) */}
+      <Sequence from={0} durationInFrames={240} name="Problem">
         <ProblemScene />
       </Sequence>
 
-      {/* Scene 3: Solution (390-690 frames = 10s) */}
-      <Sequence from={390} durationInFrames={300} name="Solution">
+      {/* Scene 2: Solution (240-480 frames = 8s) */}
+      <Sequence from={240} durationInFrames={240} name="Solution">
         <SolutionScene />
       </Sequence>
 
-      {/* Scene 4: Cache Diagram (690-990 frames = 10s) */}
-      <Sequence from={690} durationInFrames={300} name="Cache Diagram">
+      {/* Scene 3: Cache Diagram (480-780 frames = 10s) */}
+      <Sequence from={480} durationInFrames={300} name="Cache Diagram">
         <CacheDiagramScene />
       </Sequence>
 
-      {/* Scene 5: Modal Example (990-1290 frames = 10s) */}
-      <Sequence from={990} durationInFrames={300} name="Modal Example">
+      {/* Scene 4: Modal Example (780-1020 frames = 8s) */}
+      <Sequence from={780} durationInFrames={240} name="Modal Example">
         <ModalExampleScene />
       </Sequence>
 
-      {/* Scene 6: Conclusion (1290-1500 frames = 7s) */}
-      <Sequence from={1290} durationInFrames={210} name="Conclusion">
+      {/* Scene 5: Conclusion (1020-1230 frames = 7s) */}
+      <Sequence from={1020} durationInFrames={210} name="Conclusion">
         <ConclusionScene />
       </Sequence>
     </Root>

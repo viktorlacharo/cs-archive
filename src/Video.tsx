@@ -37,7 +37,7 @@ export const Video: React.FC = () => {
       <Composition
         id="ReactQueryEconomy"
         component={ReactQueryEconomyComposition}
-        durationInFrames={1500} // 50 seconds at 30fps
+        durationInFrames={1230} // 41 seconds at 30fps
         fps={30}
         width={1080}
         height={1920}
