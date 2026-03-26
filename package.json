@@ -1,0 +1,44 @@
+{
+  "name": "cs-archive-remotion",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CSArchive video templates with Viktor Lacharo's branding",
+  "scripts": {
+    "start": "remotion studio",
+    "build": "remotion render",
+    "upgrade": "remotion upgrade",
+    "test": "echo \"No tests yet\"",
+    "lint": "eslint src --ext ts,tsx",
+    "format": "prettier --write src/"
+  },
+  "keywords": ["remotion", "video", "csarchive", "technical", "education"],
+  "author": "Viktor Lacharo",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "remotion": "^4.0.0",
+    "prism-react-renderer": "^2.3.0",
+    "polished": "^4.2.2",
+    "framer-motion": "^10.16.16"
+  },
+  "devDependencies": {
+    "@remotion/cli": "^4.0.0",
+    "@remotion/eslint-config": "^4.0.0",
+    "@remotion/studio": "^4.0.0",
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.3.0",
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "remotion": {
+    "silent": false
+  }
+}
